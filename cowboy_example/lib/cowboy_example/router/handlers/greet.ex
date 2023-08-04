@@ -21,7 +21,6 @@ defmodule CowboyExample.Router.Handlers.Greet do
       |> Enum.into(%{})
       |> Map.get("greeting", @default_greeting)
 
-
     req1 =
       :cowboy_req.reply(
         200,
