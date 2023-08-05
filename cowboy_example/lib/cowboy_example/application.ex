@@ -8,7 +8,7 @@ defmodule CowboyExample.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Task, fn -> CowboyExample.Server.start(4040) end}
+      {Task, fn -> CowboyExample.Server.start(port()) end}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -16,4 +16,6 @@ defmodule CowboyExample.Application do
     opts = [strategy: :one_for_one, name: CowboyExample.Supervisor]
     Supervisor.start_link(children, opts)
   end
+
+  defp port, do: Application.get_env(:cowboy_example, :port, 4040)
 end
