@@ -42,5 +42,16 @@ defmodule CowboyExample.ServerTest do
       assert response.status == 200
       assert {"content-type", "text/html"} in response.headers
     end
+
+    test "returns 404 when not using a GET request" do
+      {:ok, response} =
+        :put
+        |> Finch.build("http://localhost:4041/greet/Elixir?greeting=Hola")
+        |> Finch.request(CowboyExample.Finch)
+
+      assert response.body == "404 Not found"
+      assert response.status == 404
+      assert {"content-type", "text/html"} in response.headers
+    end
   end
 end
